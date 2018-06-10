@@ -1545,7 +1545,7 @@ object BitVector {
    *
    * @group constructors
    */
-  def concat(bvs: GenTraversableOnce[BitVector]): BitVector = bvs.foldLeft(BitVector.empty)(_ ++ _)
+  def concat(bvs: GenTraversableOnce[BitVector]): BitVector = bvs.iterator.foldLeft(BitVector.empty)(_ ++ _)
 
   /**
    * Create a lazy `BitVector` by repeatedly extracting chunks from `S`.
@@ -1996,7 +1996,7 @@ object BitVector {
         fixup { (f(h, h2), m+n) :: t }
       case _ => stack
     }
-    v.foldLeft(List[(A,Long)]())((stack,a) => fixup((a -> size(a)) :: stack))
+    v.iterator.foldLeft(List[(A,Long)]())((stack,a) => fixup((a -> size(a)) :: stack))
      .reverse.map(_._1)
      .reduceLeft(f)
   }

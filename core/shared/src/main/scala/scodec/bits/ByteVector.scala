@@ -1849,7 +1849,7 @@ object ByteVector {
    *
    * @group constructors
    */
-  def concat(bvs: GenTraversableOnce[ByteVector]): ByteVector = bvs.foldLeft(ByteVector.empty)(_ ++ _).unbuffer
+  def concat(bvs: GenTraversableOnce[ByteVector]): ByteVector = bvs.iterator.foldLeft(ByteVector.empty)(_ ++ _).unbuffer
 
   @SerialVersionUID(1L)
   private class SerializationProxy(private val bytes: Array[Byte]) extends Serializable {
