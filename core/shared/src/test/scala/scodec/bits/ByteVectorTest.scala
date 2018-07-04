@@ -21,6 +21,11 @@ class ByteVectorTest extends BitsSuite {
     }
   }
 
+  test("issue #90") {
+    val x = ByteVector.fill(Int.MaxValue.toLong + 1)(0)
+    (x === x) shouldBe true
+  }
+
   test("=== consistent with ==") {
     forAll { (b: ByteVector, b2: ByteVector) =>
       (b == b2) shouldBe (b === b2)
