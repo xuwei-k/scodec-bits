@@ -635,6 +635,19 @@ sealed abstract class ByteVector
     }
   }
 
+  final def copyToArrayNew(xs: Array[Byte], start: Int): Unit = {
+    foreachV {
+      new (View => Unit) {
+        private var i: Int = start
+
+        def apply(v: View): Unit = {
+          v.copyToArray(xs, i)
+          i += toIntSize(v.size)
+        }
+      }
+    }
+  }
+
   /** Copies `size` bytes of this vector, starting at index `offset`, to array `xs`, beginning at
     * index `start`.
     *
